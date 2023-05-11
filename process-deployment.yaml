@@ -1,0 +1,119 @@
+###
+### A complete description of a Prefect Deployment for flow 'process'
+###
+name: iris-process
+description: |-
+  Flow to process the ata
+
+  Parameters
+  ----------
+  location : Location, optional
+      Locations of inputs and outputs, by default Location()
+  config : ProcessConfig, optional
+      Configurations for processing data, by default ProcessConfig()
+version: 4714c365464d85fd22df1ed9abd4ba2b
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+work_pool_name: null
+tags: []
+parameters: {}
+schedule: null
+is_schedule_active: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: process
+manifest_path: null
+storage: null
+path: /Users/agpascoemacmini3/MLPipe3
+entrypoint: src/process.py:process
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    location:
+      title: location
+      default:
+        data_raw: data/raw/iris.csv
+        data_process: data/processed/xy.pkl
+        data_final: data/final/predictions.pkl
+        model: models/svc.pkl
+        input_notebook: notebooks/analyze_results.ipynb
+        output_notebook: notebooks/results.ipynb
+      position: 0
+      allOf:
+      - $ref: '#/definitions/Location'
+    config:
+      title: config
+      default:
+        drop_columns:
+        - Id
+        label: Species
+        test_size: 0.3
+      position: 1
+      allOf:
+      - $ref: '#/definitions/ProcessConfig'
+  required: null
+  definitions:
+    Location:
+      title: Location
+      description: Specify the locations of inputs and outputs
+      type: object
+      properties:
+        data_raw:
+          title: Data Raw
+          default: data/raw/iris.csv
+          type: string
+        data_process:
+          title: Data Process
+          default: data/processed/xy.pkl
+          type: string
+        data_final:
+          title: Data Final
+          default: data/final/predictions.pkl
+          type: string
+        model:
+          title: Model
+          default: models/svc.pkl
+          type: string
+        input_notebook:
+          title: Input Notebook
+          default: notebooks/analyze_results.ipynb
+          type: string
+        output_notebook:
+          title: Output Notebook
+          default: notebooks/results.ipynb
+          type: string
+    ProcessConfig:
+      title: ProcessConfig
+      description: Specify the parameters of the `process` flow
+      type: object
+      properties:
+        drop_columns:
+          title: Drop Columns
+          default:
+          - Id
+          type: array
+          items:
+            type: string
+        label:
+          title: Label
+          default: Species
+          type: string
+        test_size:
+          title: Test Size
+          default: 0.3
+          type: number
+timestamp: '2023-05-11T05:06:49.281184+00:00'
