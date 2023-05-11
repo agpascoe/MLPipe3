@@ -6,6 +6,10 @@ install:
 	@echo "Installing..."
 	poetry install
 	poetry run pre-commit install
+	# When you run poetry run pre-commit install, it sets up pre-commit hooks in your Git repository, 
+	# allowing you to enforce code quality standards and formatting guidelines before committing changes. 
+	# These hooks can perform various tasks such as code linting, formatting, static analysis, 
+	# and more based on the configuration specified in your project's .pre-commit-config.yaml file.
 
 activate:
 	@echo "Activating virtual environment"
